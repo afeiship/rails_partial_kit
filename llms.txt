@@ -1,0 +1,34 @@
+# RailsPartialKit - AI Assistant Context
+
+## Project Overview
+RailsPartialKit is a lightweight helper system for building reusable Rails UI components with partials. It provides a registry-based approach to component management.
+
+## Key Files
+
+### Core Library
+- `lib/rails_partial_kit/component_registry.rb` - Component registration and lookup
+- `lib/rails_partial_kit/component_renderer.rb` - Renders components with validation
+- `lib/rails_partial_kit/component_helper.rb` - View helper methods
+- `lib/rails_partial_kit/engine.rb` - Rails engine integration
+- `lib/rails_partial_kit/railtie.rb` - Railtie for helper injection
+
+### Component Registration
+Components are registered via `ComponentRegistry.register`:
+```ruby
+RailsPartialKit::ComponentRegistry.register(:card, {
+  partial: 'shared/components/card',
+  defaults: { variant: :default },
+  validator: { required: [:title] }
+})
+```
+
+### Usage in Views
+```erb
+<%= component :card, title: "Hello", body: "World" %>
+```
+
+## Architecture
+- Uses Rails partial rendering system
+- Supports default values for component props
+- Validates required props before rendering
+- Auto-loads components from `app/components/*.rb`

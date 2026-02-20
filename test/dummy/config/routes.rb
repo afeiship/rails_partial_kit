@@ -1,3 +1,3 @@
 Rails.application.routes.draw do
-  mount RailsPartialKit::Engine => "/rails_partial_kit"
+  get "components_demo", to: "components_demo#index"
 end

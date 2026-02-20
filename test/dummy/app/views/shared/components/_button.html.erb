@@ -1,0 +1,17 @@
+<%
+  variant = local_assigns[:variant] || :primary
+  size = local_assigns[:size] || :md
+  disabled = local_assigns[:disabled] || false
+  button_classes = [
+    "btn",
+    "btn--#{variant}",
+    "btn--#{size}",
+    ("btn--disabled" if disabled)
+  ].compact.join(" ")
+%>
+
+<%= tag.button(local_assigns[:text] || "Button",
+    class: button_classes,
+    type: local_assigns[:type] || :button,
+    disabled: disabled,
+    **local_assigns[:attributes] || {}) %>

@@ -1,0 +1,25 @@
+<%
+  variant = local_assigns[:variant] || :info
+  dismissible = local_assigns[:dismissible] || false
+  alert_classes = [
+    "alert",
+    "alert--#{variant}",
+    ("alert--dismissible" if dismissible)
+  ].compact.join(" ")
+%>
+
+<div class="<%= alert_classes %>" role="alert">
+  <% if dismissible %>
+    <button type="button" class="alert__close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  <% end %>
+
+  <% if local_assigns[:title] %>
+    <h4 class="alert__title"><%= title %></h4>
+  <% end %>
+
+  <div class="alert__content">
+    <%= local_assigns[:message] %>
+  </div>
+</div>

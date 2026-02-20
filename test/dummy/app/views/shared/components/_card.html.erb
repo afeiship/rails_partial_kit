@@ -1,0 +1,19 @@
+<div class="card card--<%= local_assigns[:variant] || 'default' %>">
+  <% if local_assigns[:title] %>
+    <div class="card__header">
+      <h3 class="card__title"><%= title %></h3>
+    </div>
+  <% end %>
+
+  <% if local_assigns[:body] %>
+    <div class="card__body">
+      <%= body %>
+    </div>
+  <% end %>
+
+  <% if local_assigns[:footer] %>
+    <div class="card__footer">
+      <%= footer %>
+    </div>
+  <% end %>
+</div>

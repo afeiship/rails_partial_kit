@@ -1,0 +1,39 @@
+<div class="container" style="padding: 2rem; max-width: 800px; margin: 0 auto;">
+  <h1>Rails Partial Kit - Component Demo</h1>
+
+  <section style="margin-bottom: 3rem;">
+    <h2>Cards</h2>
+
+    <%= component :card, title: "Default Card", body: "This is a default card component." %>
+
+    <%= component :card, title: "Success Card", body: "This card uses the success variant.", variant: :success %>
+
+    <%= component :card,
+        title: "Card with Footer",
+        body: "This card has all three sections.",
+        footer: "Card footer content" %>
+  </section>
+
+  <section style="margin-bottom: 3rem;">
+    <h2>Buttons</h2>
+
+    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem;">
+      <%= component :button, text: "Primary Button" %>
+      <%= component :button, text: "Secondary", variant: :secondary %>
+      <%= component :button, text: "Danger", variant: :danger %>
+      <%= component :button, text: "Small", size: :sm %>
+      <%= component :button, text: "Large", size: :lg %>
+      <%= component :button, text: "Disabled", disabled: true %>
+    </div>
+  </section>
+
+  <section style="margin-bottom: 3rem;">
+    <h2>Alerts</h2>
+
+    <%= component :alert, message: "This is an info alert." %>
+
+    <%= component :alert, title: "Warning", message: "This is a warning alert with title.", variant: :warning %>
+
+    <%= component :alert, title: "Error", message: "Something went wrong!", variant: :error, dismissible: true %>
+  </section>
+</div>
