@@ -1,0 +1,32 @@
+{
+  "name": "rails_partial_kit",
+  "version": "1.0.0",
+  "description": "Short description and motivation.",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "dev": "cd test/dummy && rails server",
+    "clean": "rm -rf *.gem",
+    "build": "gem build *.gemspec",
+    "pubpush": "gem push *.gem",
+    "release": "release-it"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/afeiship/rails_partial_kit.git"
+  },
+  "keywords": [
+    "rails",
+    "partial",
+    "kit"
+  ],
+  "author": "afeiship",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/afeiship/rails_partial_kit/issues"
+  },
+  "homepage": "https://github.com/afeiship/rails_partial_kit#readme"
+}

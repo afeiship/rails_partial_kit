@@ -1,3 +1,3 @@
 Rails.application.routes.draw do
-  mount RailsAdminUsers::Engine => "/rails_admin_users"
+  mount RailsPartialKit::Engine => "/rails_partial_kit"
 end
