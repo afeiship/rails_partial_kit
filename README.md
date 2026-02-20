@@ -9,6 +9,7 @@ A lightweight helper system for building reusable Rails UI components with parti
 - **Default Values** - Set sensible defaults for component props
 - **Validation** - Validate required props before rendering
 - **Auto-loading** - Automatically load component definitions from `app/components`
+- **Generators** - Quickly scaffold new components with built-in generators
 
 ## Installation
 
@@ -23,51 +24,88 @@ And then execute:
 $ bundle
 ```
 
+Run the install generator:
+
+```bash
+$ rails generate rails_partial_kit:install
+```
+
+This creates `config/initializers/rails_partial_kit.rb` which sets up component auto-loading.
+
 ## Quick Start
 
-### 1. Create a Partial
+### Generate a Component
 
-Create a partial in `app/views/shared/components/`:
+Use the built-in generator to create a new component:
 
-```erb
-<%# app/views/shared/components/_card.html.erb %>
-<div class="card card--<%= local_assigns[:variant] || 'default' %>">
-  <% if local_assigns[:title] %>
-    <div class="card__header">
-      <h3 class="card__title"><%= title %></h3>
-    </div>
-  <% end %>
+```bash
+# Basic component
+rails generate rails_partial_kit:component card title
 
-  <% if local_assigns[:body] %>
-    <div class="card__body">
-      <%= body %>
-    </div>
-  <% end %>
-</div>
+# Component with variant option
+rails generate rails_partial_kit:component button text variant:primary
+
+# Component with custom partial path
+rails generate rails_partial_kit:component panel body partial:admin/panels
+
+# Skip partial creation (register only)
+rails generate rails_partial_kit:component modal title --no_partial
 ```
 
-### 2. Register the Component
+This creates:
+- `app/components/{name}_component.rb` - Component registration file
+- `app/views/shared/components/{name}/_{name}.html.erb` - Partial template
 
-Create a registration file in `app/components/`:
-
-```ruby
-# app/components/card_component.rb
-RailsPartialKit::ComponentRegistry.register(:card, {
-  partial: 'shared/components/card',
-  defaults: { variant: :default },
-  validator: { required: [:title] }
-})
-```
-
-### 3. Use in Views
+### Use in Views
 
 ```erb
 <%= component :card, title: "Hello", body: "World" %>
 
-<%= component :card,
-    title: "Success",
-    body: "Operation completed!",
-    variant: :success %>
+<%= component :button, text: "Click me", variant: :primary %>
+
+<%= component :alert, message: "Something happened!", variant: :warning %>
+```
+
+## Generators
+
+### Install Generator
+
+Sets up the initializer for component auto-loading:
+
+```bash
+rails generate rails_partial_kit:install
+```
+
+### Component Generator
+
+Creates a new component with registration and partial:
+
+```bash
+rails generate rails_partial_kit:component NAME [fields] [options]
+```
+
+**Options:**
+
+| Option | Description |
+|--------|-------------|
+| `partial` | Custom partial path (default: `shared/components/NAME`) |
+| `variant` | Add a variant default value |
+| `no_partial` | Skip creating the partial file |
+
+**Examples:**
+
+```bash
+# Create a card component with required title field
+rails g rails_partial_kit:component card title
+
+# Create a button with variant default
+rails g rails_partial_kit:component button text variant:primary
+
+# Create a panel with custom partial location
+rails g rails_partial_kit:component panel title partial:admin/panels
+
+# Create a modal without partial (you'll create it manually)
+rails g rails_partial_kit:component modal title --no_partial
 ```
 
 ## API Reference
@@ -77,7 +115,7 @@ RailsPartialKit::ComponentRegistry.register(:card, {
 Register a new component.
 
 ```ruby
-ComponentRegistry.register(:button, {
+RailsPartialKit::ComponentRegistry.register(:button, {
   partial: 'shared/components/button',  # Path to the partial
   defaults: { variant: :primary },       # Default values for props
   validator: { required: [:text] }       # Required props

@@ -1,19 +1,59 @@
 # RailsPartialKit - AI Assistant Context
 
 ## Project Overview
-RailsPartialKit is a lightweight helper system for building reusable Rails UI components with partials. It provides a registry-based approach to component management.
+RailsPartialKit is a lightweight helper system for building reusable Rails UI components with partials. It provides a registry-based approach to component management with built-in generators.
+
+## Installation
+
+```bash
+# Add to Gemfile
+gem "rails_partial_kit"
+
+# Run install generator
+rails generate rails_partial_kit:install
+```
+
+## Generators
+
+### Install Generator
+Creates `config/initializers/rails_partial_kit.rb` for component auto-loading.
+
+### Component Generator
+```bash
+rails generate rails_partial_kit:component NAME [fields] [options]
+```
+
+**Options:**
+- `partial:path` - Custom partial path
+- `variant:name` - Add variant default
+- `no_partial` - Skip partial creation
+
+**Examples:**
+```bash
+rails g rails_partial_kit:component card title
+rails g rails_partial_kit:component button text variant:primary
+rails g rails_partial_kit:component panel body partial:admin/panels
+```
 
 ## Key Files
 
 ### Core Library
 - `lib/rails_partial_kit/component_registry.rb` - Component registration and lookup
 - `lib/rails_partial_kit/component_renderer.rb` - Renders components with validation
-- `lib/rails_partial_kit/component_helper.rb` - View helper methods
+- `lib/rails_partial_kit/component_helper.rb` - View helper methods (`component`)
 - `lib/rails_partial_kit/engine.rb` - Rails engine integration
 - `lib/rails_partial_kit/railtie.rb` - Railtie for helper injection
 
-### Component Registration
-Components are registered via `ComponentRegistry.register`:
+### Generators
+- `lib/generators/rails_partial_kit/install/install_generator.rb` - Install generator
+- `lib/generators/rails_partial_kit/component/component_generator.rb` - Component generator
+
+### Generated Files
+- `app/components/{name}_component.rb` - Component registration
+- `app/views/shared/components/{name}/_{name}.html.erb` - Partial template
+
+## Component Registration
+
 ```ruby
 RailsPartialKit::ComponentRegistry.register(:card, {
   partial: 'shared/components/card',
@@ -22,9 +62,11 @@ RailsPartialKit::ComponentRegistry.register(:card, {
 })
 ```
 
-### Usage in Views
+## Usage in Views
+
 ```erb
 <%= component :card, title: "Hello", body: "World" %>
+<%= component :button, text: "Click", variant: :primary %>
 ```
 
 ## Architecture
@@ -32,3 +74,9 @@ RailsPartialKit::ComponentRegistry.register(:card, {
 - Supports default values for component props
 - Validates required props before rendering
 - Auto-loads components from `app/components/*.rb`
+- Generators scaffold component registration and partials
+
+## Initializer
+The install generator creates `config/initializers/rails_partial_kit.rb` which:
+1. Includes `ComponentHelper` in `ActionView::Base`
+2. Auto-loads component definitions from `app/components/**/*.rb`
