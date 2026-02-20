@@ -11,10 +11,10 @@ Gem::Specification.new do |spec|
   spec.license     = "MIT"
 
   spec.metadata["homepage_uri"] = spec.homepage
-  spec.metadata["source_code_uri"] = spec.homepage
+  spec.metadata["source_code_uri"] = "https://github.com/afeiship/rails_partial_kit"
   spec.metadata["changelog_uri"] = "https://github.com/afeiship/rails_partial_kit/blob/main/CHANGELOG.md"
   spec.metadata["documentation_uri"] = "https://github.com/afeiship/rails_partial_kit/blob/main/README.md"
-  spec.metadata["ai_assistant_uri"] = "https://github.com/afeiship/rails_partial_kit/blob/main/llms.txt"
+  spec.metadata["bug_tracker_uri"] = "https://github.com/afeiship/rails_partial_kit/issues"
 
   spec.required_ruby_version = ">= 3.0.0"
 
