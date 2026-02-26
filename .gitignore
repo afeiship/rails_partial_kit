@@ -12,3 +12,6 @@
 # Claude
 .claude/*.local.json
 *.gem
+
+.idea
+.vscode
